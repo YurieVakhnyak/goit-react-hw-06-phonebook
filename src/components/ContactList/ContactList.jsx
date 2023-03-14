@@ -1,27 +1,22 @@
 import { useSelector } from 'react-redux';
-import { getContacts, getStatusFilter } from '../../redux/selectors';
-import { statusFilters } from '../../redux/constants';
+import { getContacts, getFilterValue } from '../../redux/selectors';
 
 import { ContactItem } from 'components/ContactItem/ContactItem';
 import { ContacListStyled } from './ContactList.styled';
 
-const getVisibleContacts = (contacts, statusFilter) => {
-  // console.log(statusFilter);
-
-  switch (statusFilter) {
-    case statusFilters.active:
-      return contacts.filter(contact =>
-        contact.name.toLowerCase().includes(statusFilter.value.toLowerCase())
-      );
-    default:
-      return contacts;
+const getVisibleContacts = (contacts, filterValue) => {
+  if (filterValue !== '') {
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filterValue.toLowerCase())
+    );
   }
+  return contacts;
 };
 
 export const ContactList = () => {
   const contacts = useSelector(getContacts);
-  const statusFilter = useSelector(getStatusFilter);
-  const visibleContacts = getVisibleContacts(contacts, statusFilter);
+  const filterValue = useSelector(getFilterValue);
+  const visibleContacts = getVisibleContacts(contacts, filterValue);
 
   return (
     <ContacListStyled>

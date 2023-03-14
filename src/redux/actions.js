@@ -20,16 +20,9 @@ export const deleteContact = contactId => {
   };
 };
 
-// export const toggleCompleted = contactId => {
-//   return {
-//     type: 'contacts/toggleCompleted',
-//     payload: contactId,
-//   };
-// };
-
-export const setStatusFilter = value => {
+export const setFilterValue = value => {
   return {
-    type: 'filters/setStatusFilter',
+    type: 'filterValue/setFilterValue',
     payload: value,
   };
 };

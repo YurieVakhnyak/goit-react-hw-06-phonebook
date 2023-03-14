@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { statusFilters } from './constants';
+// import { statusFilters } from './constants';
 
 // const tasksInitialState = [
 //   { id: 0, text: 'Learn HTML and CSS', completed: true },
@@ -22,28 +22,21 @@ const contactsReducer = (state = contactsInitialState, action) => {
       return [...state, action.payload];
     case 'contacts/deleteContact':
       return state.filter(contact => contact.id !== action.payload);
-    // case 'contacts/toggleCompleted':
-    //   return state.map(contact => {
-    //     if (contact.id !== action.payload) {
-    //       return contacts;
-    //     }
-    //     return { ...contacts, completed: !contact.completed };
-    //   });
     default:
       return state;
   }
 };
 
-const filtersInitialState = {
-  status: statusFilters.all,
+const filterInitialState = {
+  filterValue: '',
 };
 
-const filtersReducer = (state = filtersInitialState, action) => {
+const filterReducer = (state = filterInitialState, action) => {
   switch (action.type) {
-    case 'filters/setStatusFilter':
+    case 'filterValue/setFilterValue':
       return {
         ...state,
-        status: action.payload,
+        filterValue: action.payload,
       };
     default:
       return state;
@@ -52,5 +45,5 @@ const filtersReducer = (state = filtersInitialState, action) => {
 
 export const rootReducer = combineReducers({
   contacts: contactsReducer,
-  filters: filtersReducer,
+  filter: filterReducer,
 });

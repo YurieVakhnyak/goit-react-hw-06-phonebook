@@ -1,6 +1,7 @@
-// import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addContacts } from '../../redux/actions';
+import { getContacts } from '../../redux/selectors';
+import { Notify } from 'notiflix';
 
 import {
   ContactFormStyled,
@@ -11,21 +12,19 @@ import {
 
 export const ContactForm = () => {
   const dispatch = useDispatch();
-
-  // function handleChange(evt) {
-  //   const { name, value } = evt.target;
-
-  //   if (name === 'name') {
-  //     setName(value);
-  //   } else if (name === 'number') {
-  //     setNumber(value);
-  //   }
-  // }
+  const contacts = useSelector(getContacts);
 
   function handleSubmit(evt) {
     evt.preventDefault();
     const form = evt.target;
-    dispatch(addContacts(form.elements.name.value, form.elements.number.value));
+    const nameValue = form.elements.name.value;
+    const filteredContacts = contacts.filter(
+      contact => contact.name === nameValue
+    );
+
+    filteredContacts.length > 0
+      ? Notify.info(`${nameValue} is allready in contacts`)
+      : dispatch(addContacts(nameValue, form.elements.number.value));
     form.reset();
   }
 

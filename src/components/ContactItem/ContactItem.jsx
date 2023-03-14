@@ -8,9 +8,7 @@ import {
 } from 'components/ContactItem/ContactItem.styled';
 import { deleteContact } from 'redux/actions';
 
-export const ContactItem = ({ id, number, name }) => {
-  console.log(id, number, name);
-
+export const ContactItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
 
   const onDeleteContact = evt => {
